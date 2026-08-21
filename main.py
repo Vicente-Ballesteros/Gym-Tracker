@@ -1,8 +1,9 @@
 print("Welcome to the Gym Tracker!")
 
-response = input("Would you like to track your exercise? (yes/no): ")
+response = input("Would you like to track your exercise? (yes/no): ").lower()
+answer = ["yes", "y"]
 
-
+all_workouts = []
 def track_exercise():
         exercise = input("Enter the name of the exercise you want to track: ")
         number_of_sets = int(input("Enter the number of sets: "))
@@ -24,14 +25,21 @@ def track_exercise():
         return workout
 
 
-if response == "yes":
-        workout = track_exercise()
+if response in answer:
+        keep_going = True
+        while keep_going:
+                workout = track_exercise()
+                all_workouts.append(workout)  
+                more = input("Would you like to track another exercise? (yes/no): ").lower()
+                keep_going = more in answer
+
         print("\nWorkout summary:")
-        print(f"Exercise: {workout['exercise']}")
-        for set_data in workout["sets"]:
-                print(
-                        f"Set {set_data['set']}: "
-                        f"{set_data['reps']} reps at {set_data['weight_kg']} kg"
-                )
+        for workout in all_workouts:          
+                print(f"Exercise: {workout['exercise']}")
+                for set_data in workout["sets"]:  
+                        print(
+                                f"Set {set_data['set']}: "
+                                f"{set_data['reps']} reps at {set_data['weight_kg']} kg"
+                        )
 else:
         print("Okay, have a great day!")
