@@ -18,7 +18,12 @@ except FileNotFoundError:
 
 def track_exercise():
         exercise = input("Enter the name of the exercise you want to track: ")
-        number_of_sets = int(input("Enter the number of sets: "))
+        while True:
+               try:
+                 number_of_sets = int(input("Enter the number of sets: "))
+                 break
+               except ValueError:
+                 print("Please enter a valid number.")
         workout = {
                 "exercise": exercise,
                 "sets": []
@@ -26,8 +31,18 @@ def track_exercise():
 
         for set_number in range(number_of_sets):
                 print(f"Set {set_number + 1}:")
-                reps = int(input("Enter the number of reps: "))
-                weight = int(input("Enter the weight used (in kg): "))
+                while True:
+                        try:
+                                reps = int(input("Enter the number of reps: "))
+                                break
+                        except ValueError:
+                                print("Please enter a valid number.")
+                while True:
+                        try:
+                                weight = int(input("Enter the weight used (in kg): "))
+                                break
+                        except ValueError:
+                                print("Please enter a valid number.")
                 workout["sets"].append({
                         "set": set_number + 1,
                         "reps": reps,
