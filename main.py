@@ -1,4 +1,10 @@
 import json
+import datetime
+x = datetime.datetime.now()
+
+date = str(x.strftime("%x"))
+print(date)
+
 print("Welcome to the Gym Tracker!")
 
 response = input("Would you like to track your exercise? (yes/no): ").lower()
@@ -32,15 +38,20 @@ def track_exercise():
 
 
 if response in answer:
+        session = {
+        "date": date,
+        "exercises": []
+        }
+
         keep_going = True
         while keep_going:
                 workout = track_exercise()
-                all_workouts.append(workout)
+                session["exercises"].append(workout)
                 more = input("Would you like to track another exercise? (yes/no): ").lower()
                 keep_going = more in answer
 
         print("\nWorkout summary:")
-        for workout in all_workouts:
+        for workout in session["exercises"]:
                 print(f"Exercise: {workout['exercise']}")
                 for set_data in workout["sets"]:
                         print(
@@ -48,6 +59,7 @@ if response in answer:
                                 f"{set_data['reps']} reps at {set_data['weight_kg']} kg"
                         )
 
+        all_workouts.append(session)
         with open("workouts.json", "w") as f:
                 json.dump(all_workouts, f, indent=4)
 else:
