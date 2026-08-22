@@ -10,6 +10,16 @@ print("Welcome to the Gym Tracker!")
 response = input("Would you like to track your exercise? (yes/no): ").lower()
 answer = ["yes", "y"]
 
+def get_valid_input(prompt):
+        while True:
+                try:
+                        number = int(input(prompt))
+                        break
+                except ValueError:
+                        print("Please enter a valid number.")
+        return number
+
+
 try:
     with open("workouts.json", "r") as f:
         all_workouts = json.load(f)
@@ -18,12 +28,7 @@ except FileNotFoundError:
 
 def track_exercise():
         exercise = input("Enter the name of the exercise you want to track: ")
-        while True:
-               try:
-                 number_of_sets = int(input("Enter the number of sets: "))
-                 break
-               except ValueError:
-                 print("Please enter a valid number.")
+        number_of_sets = get_valid_input("Enter the number of sets: ")
         workout = {
                 "exercise": exercise,
                 "sets": []
@@ -31,18 +36,10 @@ def track_exercise():
 
         for set_number in range(number_of_sets):
                 print(f"Set {set_number + 1}:")
-                while True:
-                        try:
-                                reps = int(input("Enter the number of reps: "))
-                                break
-                        except ValueError:
-                                print("Please enter a valid number.")
-                while True:
-                        try:
-                                weight = int(input("Enter the weight used (in kg): "))
-                                break
-                        except ValueError:
-                                print("Please enter a valid number.")
+                reps = get_valid_input("Enter the number of reps: ")
+                weight = get_valid_input("Enter the weight used (in kg): ")
+                           
+                                
                 workout["sets"].append({
                         "set": set_number + 1,
                         "reps": reps,
