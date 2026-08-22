@@ -5,10 +5,21 @@ x = datetime.datetime.now()
 date = str(x.strftime("%x"))
 print(date)
 
+def get_valid_response(prompt):
+        while True:
+                response = input(prompt).lower()
+                if response in ["yes", "no", "y", "n"]:
+                        break
+                else:
+                        print("Please enter a valid response (yes/no).")
+        return response
+
+
 print("Welcome to the Gym Tracker!")
 
-response = input("Would you like to track your exercise? (yes/no): ").lower()
+response = get_valid_response("Would you like to track your exercise? (yes/no): ")
 answer = ["yes", "y"]
+
 
 def get_valid_input(prompt):
         while True:
@@ -59,7 +70,7 @@ if response in answer:
         while keep_going:
                 workout = track_exercise()
                 session["exercises"].append(workout)
-                more = input("Would you like to track another exercise? (yes/no): ").lower()
+                more = get_valid_response("Would you like to track another exercise? (yes/no): ")
                 keep_going = more in answer
 
         print("\nWorkout summary:")
